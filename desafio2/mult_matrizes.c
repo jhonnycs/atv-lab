@@ -2,7 +2,7 @@
 
 /*
     Implementar a multiplicação de matrizes.
-    O usuário deve escolher o tamanho da matriz
+    O usuário deve escolher o tamanho das matrizes
     Matriz 1: m x n
     Matriz 2: n x z
 
