@@ -9,7 +9,7 @@
     Para resolver esse desafio, fiz no papel a multiplicação de duas
     matrizes A(m x n), B(n x z) que resulta numa matriz R(m x z).
     Observei que o resultado de um elemento qualquer de R possui n somas.
-    Observer que um elemento R qualquer r(i, j) é o resultado do somatório:
+    Observei que um elemento r(i, j) qualquer de Rs é o resultado do somatório:
     soma de p termos variando de 1 até n, a(i, p) * b(p, j).
     Sabendo disso, só implementar em código esse somatório, que gera 3 fors aninhados.
 */
@@ -71,6 +71,7 @@ int main() {
         }
     }
 
+    printf("Matriz resultante:\n");
     exibirMatriz(m, z, matrizR);
     return 0;
 }
@@ -87,7 +88,7 @@ void capturarMatriz(int linhas, int colunas, int matriz[linhas][colunas]) {
 void exibirMatriz(int linhas, int colunas, int matriz[linhas][colunas]) {
     for (int i = 0; i < linhas; i++) {
         for (int j = 0; j < colunas; j++) {
-            printf("%d ", matriz[i][j]);
+            printf("%d     ", matriz[i][j]);
         }
         printf("\n");
     }
