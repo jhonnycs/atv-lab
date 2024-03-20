@@ -1,5 +1,4 @@
 # Atividade 2 de Lab de Programação
-Data de entrega: 22/03/2024
 
 ## Questão 1
 Implemente uma função recursiva que recebe um inteiro positivo n e retorne<br>
