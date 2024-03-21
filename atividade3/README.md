@@ -1,7 +1,5 @@
 # Atividade 3 de Lab de Programação
 
-# Atividade 2 de Lab de Programação
-
 ## Questão 1
 Implemente o seu gerador de números aleatórios para preencher vetores<br>
 Implemente a sua função de imprimir um vetor<br>
