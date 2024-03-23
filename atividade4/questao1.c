@@ -86,8 +86,6 @@ void soma() {
     scanf("%d", &valor2);
 
     printf("\n%d + %d = %d\n\n", valor1, valor2, valor1 + valor2);
-    
-
 }
 
 void subtracao() {
