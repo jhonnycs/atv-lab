@@ -20,46 +20,50 @@ int main() {
     int opc;
 
     while (1) {
-    printf("Digite a opção que deseja:\n");
-    printf("Sair do programa - 0\n");
-    printf("Soma: 1:\n");
-    printf("Subtração: 2:\n");
-    printf("Multiplicação: 3:\n");
-    printf("Divisão: 4:\n");
-    printf("Resto: 5:\n> ");
-    
-    scanf("%d", &opc);
-
-    while (opc < 0 || opc > 5) {
         limparTerminal();
-        printf("Por favor, digite uma opção válida\n> ");
+        printf("Digite a opção que deseja:\n");
+        printf("0- Sair do programa\n");
+        printf("1- Soma:\n");
+        printf("2- Subtração:\n");
+        printf("3- Multiplicação:\n");
+        printf("4- Divisão:\n");
+        printf("5- Resto:\n> ");
+    
         scanf("%d", &opc);
-    }
 
-    switch (opc) {
-    case SAIR:
-        return 0;
-    case SOMA:
-        soma();
-        break;
+        while (opc < 0 || opc > 5) {
+            printf("Por favor, digite uma opção válida\n> ");
+            scanf("%d", &opc);
+        }
 
-    case SUBTRACAO:
-        multiplicacao();
-        break;
+        switch (opc) {
+        case SAIR:
+            limparTerminal();
+            printf("Saindo...");
+            return 0;
+        case SOMA:
+            soma();
+            break;
+
+        case SUBTRACAO:
+            multiplicacao();
+            break;
+            
+        case MULTIPLICACAO:
+            multiplicacao();
+            break;
         
-    case MULTIPLICACAO:
-        multiplicacao();
-        break;
-    
-    case DIVISAO:
-        divisao();
-        break;
-    
-    case RESTO:
-        resto();
-        break;
-    }
-    
+        case DIVISAO:
+            divisao();
+            break;
+        
+        case RESTO:
+            resto();
+            break;
+        }
+        printf("Pressione enter para continuar ");
+        getchar();
+        getchar();
 
     }
     return 0;
@@ -77,7 +81,8 @@ void soma() {
     printf("Digite o valor 2:\n> ");
     scanf("%d", &valor2);
 
-    printf("%d + %d = %d\n\n", valor1, valor2, valor1 + valor2);
+    printf("\n%d + %d = %d\n\n", valor1, valor2, valor1 + valor2);
+    
 
 }
 
@@ -89,7 +94,7 @@ void subtracao() {
     printf("Digite o valor 2:\n> ");
     scanf("%d", &valor2);
 
-    printf("%d - %d = %d\n\n", valor1, valor2, valor1 - valor2);
+    printf("\n%d - %d = %d\n\n", valor1, valor2, valor1 - valor2);
 }
 
 void multiplicacao() {
@@ -100,7 +105,7 @@ void multiplicacao() {
     printf("Digite o valor 2:\n> ");
     scanf("%d", &valor2);
 
-    printf("%d x %d = %d\n\n", valor1, valor2, valor1 * valor2);
+    printf("\n%d x %d = %d\n\n", valor1, valor2, valor1 * valor2);
 }
 
 void divisao() {
@@ -114,7 +119,7 @@ void divisao() {
     if (valor2 == 0) {
         printf("Não é possível dividir por 0\n\n");
     } else {
-        printf("%d / %d = %.2f\n\n", valor1, valor2, (float)valor1 / (float)valor2);
+        printf("\n%d / %d = %f\n\n", valor1, valor2, (float)valor1 / (float)valor2);
     }
 }
 
@@ -126,5 +131,5 @@ void resto() {
     printf("Digite o valor 2:\n> ");
     scanf("%d", &valor2);
 
-    printf("%d %% %d = %d\n\n", valor1, valor2, valor1 % valor2);
+    printf("\n%d %% %d = %d\n\n", valor1, valor2, valor1 % valor2);
 }
