@@ -61,9 +61,13 @@ int main() {
             resto();
             break;
         }
+        // esperar um input do usuário para que o terminal não seja limpo
+        // antes que a resposta seja visualizada
         printf("Pressione enter para continuar ");
         getchar();
         getchar();
+        // um dos getchar vai limpar o \n e o outro vai ser para esperar o usuário
+        // presionar enter
 
     }
     return 0;

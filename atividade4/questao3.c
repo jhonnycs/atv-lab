@@ -2,20 +2,21 @@
 #include <stdlib.h>
 #include <time.h>
 
-void printArray(int *array, int tamanhoArray);
+void mostrarArray(int *array, int tamanhoArray, int ponteiroArray);
 int gerarNumeroAleatorio(int min, int max);
 
 void gerarSenhas();
 void consumirSenha();
 void mostrarSenhas();
+void limparTerminal();
 
 #define SAIR 0
 #define GERAR_SENHAS 1
 #define CONSUMIR 2
 #define MOSTRAR_SENHAS 3
 
-
 #define NUMERO_SENHAS 10
+#define NUMERO_SENHAS_GLOBAIS 1000
 
 #define VALOR_MINIMO 0
 #define VALOR_MAXIMO 99
@@ -23,14 +24,20 @@ void mostrarSenhas();
 int ultimaSenhaNormal = 0;
 int ultimaSenhaPrioridade = 1000;
 
-int senhasNormais[NUMERO_SENHAS];
-int senhasPrioridade[NUMERO_SENHAS];
-int vetorTipoSenha[NUMERO_SENHAS];
-int senhasTotais[NUMERO_SENHAS];
+int senhasNormais[NUMERO_SENHAS_GLOBAIS];
+int senhasPrioridade[NUMERO_SENHAS_GLOBAIS];
+
+int posUltimaSenhaNormal = 0;
+int posUltimaSenhaPrioridade = 0;
+int quantSenhasTotais = 0;
 
 int ponteiroSenhasNormais = 0;
-int ponteiroSenhasPrioridades = 0;
-int quantSenhasTotais = 0;
+int ponteiroSenhasPrioridade = 0;
+
+#define SENHA_NORMAL 0
+#define SENHA_PRIORIDADE 1
+
+int tipoSenha = 0; // armazenar qual será a próxima senha a ser retirada
 
 int main() {
     srand(time(NULL));
@@ -38,11 +45,11 @@ int main() {
     int opc;
 
     while (1) {
-    
+        limparTerminal();
         printf("Digite a opção que deseja:\n");
         printf("0- Sair do programa\n");
         printf("1- Gerar senhas:\n");
-        printf("2- Consumir:\n");
+        printf("2- Consumir senha:\n");
         printf("3- Mostrar as senhas:\n> ");
             
         scanf("%d", &opc);
@@ -54,6 +61,8 @@ int main() {
 
         switch (opc) {
         case SAIR:
+            limparTerminal();
+            printf("Saindo...");
             return 0;
         case GERAR_SENHAS:
             gerarSenhas();
@@ -67,15 +76,17 @@ int main() {
             mostrarSenhas();
             break;
         }
-    }
 
-    printf("\n\n");
+        printf("Pressione enter para continuar ");
+        getchar();
+        getchar();
+    }
 
     return 0;
 }
 
-void printArray(int *array, int tamanhoArray) {
-    for (int i = 0; i < tamanhoArray; i++) {
+void mostrarArray(int *array, int tamanhoArray, int ponteiroArray) {
+    for (int i = ponteiroArray; i < tamanhoArray; i++) {
         printf("%d  %s", array[i], i > 0 && ((i + 1) % 20 == 0) ? "\n" : "");
     }
 }
@@ -86,43 +97,80 @@ int gerarNumeroAleatorio(int min, int max) {
 
 void gerarSenhas() {
     for (int i = 0; i < NUMERO_SENHAS; i++) {
-        quantSenhasTotais++;
+
         int tipoSenha = gerarNumeroAleatorio(VALOR_MINIMO, VALOR_MAXIMO);
-        printf("%d\n\n", tipoSenha);
 
         if (tipoSenha <= 66) {
-            senhasNormais[ponteiroSenhasNormais] = ++ultimaSenhaNormal;
-            ponteiroSenhasNormais++;
+            if (posUltimaSenhaNormal <= NUMERO_SENHAS_GLOBAIS) {
+                senhasNormais[posUltimaSenhaNormal] = ++ultimaSenhaNormal;
+                posUltimaSenhaNormal++;
+            }
         } else {
-            senhasPrioridade[ponteiroSenhasPrioridades] = ++ultimaSenhaPrioridade;
-            ponteiroSenhasPrioridades++;
+            if (posUltimaSenhaPrioridade <= NUMERO_SENHAS_GLOBAIS) {
+                senhasPrioridade[posUltimaSenhaPrioridade] = ++ultimaSenhaPrioridade;
+                posUltimaSenhaPrioridade++;
+            }
         }
     }
+    printf("\nSenhas geradas\n\n");
 }
 
-int ultimaSenha = 0;
-int quantSenhasNormais = ponteiroSenhasNormais;
-int quantSenhasPrioridade = ponteiroSenhasPrioridades;
-
 void consumirSenha() {
-
-    if (ultimaSenha == 0) {
-        ultimaSenha = 1;
-        ponteiroSenhasNormais--;
-
-    } else {
-        ultimaSenha = 0;
-
+    if (tipoSenha == SENHA_NORMAL && ponteiroSenhasNormais < posUltimaSenhaNormal) {
+        // consumir senha normal
+        tipoSenha = SENHA_PRIORIDADE;
+        ponteiroSenhasNormais++;
+        printf("\n\nSenha normal consumida.\n\n");
+        return;
+    } 
+    if (tipoSenha == SENHA_PRIORIDADE && ponteiroSenhasPrioridade < posUltimaSenhaPrioridade) {
+        // consumir senha prioridade
+        tipoSenha = SENHA_NORMAL;
+        ponteiroSenhasPrioridade++;
+        printf("\n\nSenha de prioridade consumida.\n\n");
+        return;
     }
-    
+    if (
+        tipoSenha == SENHA_NORMAL &&
+        ponteiroSenhasNormais >= posUltimaSenhaNormal &&
+        ponteiroSenhasPrioridade < posUltimaSenhaPrioridade
+    ) {
+        // consumir senha prioridade
+        ponteiroSenhasPrioridade++;
+        printf("\n\nSenha de prioridade consumida.\n\n");
+        return;
+    }
+    if (
+        tipoSenha == SENHA_PRIORIDADE &&
+        ponteiroSenhasPrioridade >= posUltimaSenhaPrioridade  &&
+        ponteiroSenhasNormais < posUltimaSenhaNormal
+    ) {
+        // comsumir senha normal
+        ponteiroSenhasNormais++;
+        printf("\n\nSenha normal consumida.\n\n");
+        return;
+    }
+
+    printf("\n\nNão há senhas para serem consumidas.\n\n");
 }
 
 void mostrarSenhas() {
-    printf("Senhas normais:\n ");
-    printArray(senhasNormais, ponteiroSenhasNormais);
+    if (posUltimaSenhaNormal > 0 && ponteiroSenhasNormais < posUltimaSenhaNormal) {
+        printf("Senhas normais:\n ");
+        mostrarArray(senhasNormais, posUltimaSenhaNormal, ponteiroSenhasNormais);
+    } else {
+        printf("\n\nNão há senhas normais\n\n");
+    }
+    
+    if (posUltimaSenhaPrioridade > 0 && ponteiroSenhasPrioridade < posUltimaSenhaPrioridade) {
+        printf("\n\nSenhas de prioridade:\n");
+        mostrarArray(senhasPrioridade, posUltimaSenhaPrioridade, ponteiroSenhasPrioridade);
+    } else {
+        printf("\n\nNão há senhas de prioridade\n\n");
+    }
     printf("\n\n");
+}
 
-    printf("\nSenhas de prioridade\n");
-    printArray(senhasPrioridade, ponteiroSenhasPrioridades);
-    printf("\n\n");
+void limparTerminal() {
+    printf("\033[H\033[J");
 }
