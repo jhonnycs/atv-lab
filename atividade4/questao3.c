@@ -60,7 +60,7 @@ void limparTerminal();
 
 // armazenam qual foi a última senha atribuída a cada um dos tipos de senha
 int ultimaSenhaNormal = 0;
-int ultimaSenhaPrioridade = 0;
+int ultimaSenhaPrioridade = 1000; // apenas para diferenciar
 
 // arrays para armazenar as senhas geradas
 int senhasNormais[NUMERO_SENHAS_GLOBAIS];
