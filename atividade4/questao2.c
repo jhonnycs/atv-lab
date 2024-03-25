@@ -29,7 +29,7 @@ int senhasNormais[NUMERO_SENHAS_GLOBAIS];
 int senhasPrioridade[NUMERO_SENHAS_GLOBAIS];
 
 int ultimaSenhaNormal = 0;
-int ultimaSenhaPrioridade = 0;
+int ultimaSenhaPrioridade = 1000;
 
 int quantSenhasNormais = 0;
 int quantSenhasPrioridade = 0;
