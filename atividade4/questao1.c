@@ -133,5 +133,5 @@ void resto() {
     printf("Digite o valor 2:\n> ");
     scanf("%d", &valor2);
 
-    printf("\n%d %% %d = %d\n\n", valor1, valor2, valor1 % valor2);
+    printf("\n%d // %d = %d\n\n", valor1, valor2, valor1 % valor2);
 }
