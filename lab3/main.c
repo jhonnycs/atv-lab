@@ -31,14 +31,56 @@ typedef struct pessoa {
 
 Pessoa pessoas[MAX_PESSOAS]; // Array para armazenar várias pessoas
 
+int isBissexto(int ano) {
+    return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
+}
+
+int diasNoMes(int mes, int ano) {
+    switch (mes) {
+        case 1: return 31; // Janeiro
+        case 2: return isBissexto(ano) ? 29 : 28; // Fevereiro
+        case 3: return 31; // Março
+        case 4: return 30; // Abril
+        case 5: return 31; // Maio
+        case 6: return 30; // Junho
+        case 7: return 31; // Julho
+        case 8: return 31; // Agosto
+        case 9: return 30; // Setembro
+        case 10: return 31; // Outubro
+        case 11: return 30; // Novembro
+        case 12: return 31; // Dezembro
+        default: return 0; // Mês inválido
+    }
+}
+
 Data getData() {
     int ano, mes, dia;
+    
     printf("Digite o ano:\n> ");
     scanf("%d", &ano);
-    printf("Digite o mês:\n> ");
+    while (ano <= 0) {
+        printf("Ano inválido. Por favor, insira um ano positivo.\n");
+        scanf("%d", &ano);
+        while (getchar() != '\n');
+    }
+    
+    printf("Digite o mês (1-12):\n> ");
     scanf("%d", &mes);
+    while (mes < 1 || mes > 12) {
+        printf("Mês inválido. Por favor, insira um valor entre 1 e 12.\n");
+        scanf("%d", &mes);
+        while (getchar() != '\n');
+    }
+
     printf("Digite o dia:\n> ");
-    scanf("%d", &dia);
+    scanf("%d", &dia)
+    int diasNoMesAtual = diasNoMes(mes, ano);
+    while (dia < 1 || dia > diasNoMesAtual) {
+        printf("Dia inválido. Por favor, digite um dia válido, entre 1 e %d.\n", diasNoMesAtual);
+        scanf("%d", &dia)
+        while (getchar() != '\n');
+    }
+
     Data data = {dia, mes, ano};
     return data;
 }
@@ -91,7 +133,7 @@ Pessoa criarFinanca() {
         printf("Número máximo de finanças atingido.\n");
     }
 
-    pessoas[pessoa.id] = pessoa; // Armazenar a pessoa no array de pessoas
+    pessoas[pessoa.id] = pessoa;
 
     return pessoa;
 }
