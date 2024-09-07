@@ -8,6 +8,8 @@
 #define MAX_INVEST 300
 #define MAX_PESSOAS 100
 
+// OBS: usar `gcc main2.c -lm` para compilar
+
 typedef struct data {
     int dia: 6;
     int mes: 5;
@@ -387,8 +389,8 @@ void exibirMenu() {
     printf("08. Agrupar por tipo e ordenar por data\n");
     printf("09. Agrupar por tipo e ordenar por valor\n");
     printf("10. Atualizar investimento\n");
-    printf("10. Exibir valor bruto total\n");
-    printf("11. Exibir valor líquido total\n");
+    printf("11. Exibir valor bruto total\n");
+    printf("12. Exibir valor líquido total\n");
     printf("0. Sair\n");
     printf("Escolha uma opção: ");
 }
@@ -448,10 +450,6 @@ void atualizarDataAtual() {
     dataAtual.ano = tm->tm_year + 1900;
     dataAtual.mes = tm->tm_mon + 1;
     dataAtual.dia = tm->tm_mday;
-
-    printf("%d\n", dataAtual.ano);
-    printf("%d\n", dataAtual.mes);
-    printf("%d\n", dataAtual.dia);
 }
 
 void atualizarInvestimento(Financeiro *financa) {
@@ -486,7 +484,7 @@ void imprimirValorLiquidoTotal(Financeiro *financa) {
 
 int main() {
     int opcao, idPessoa, indexFinanca;
-    
+
     while (1) {
         exibirMenu();
         scanf("%d", &opcao);
