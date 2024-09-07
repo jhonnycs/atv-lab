@@ -9,7 +9,7 @@
 #define MAX_PESSOAS 100
 
 typedef struct data {
-    int dia: 5;
+    int dia: 6;
     int mes: 5;
     int ano;
 } Data;
@@ -145,6 +145,8 @@ Pessoa criarFinanca() {
 
     printf("Digite o seu nome:\n> ");
     fgets(nomePessoa, TAM_NOME, stdin);
+
+    printf("%s\n", nomeInv); 
 
     removeNewline(nomeInv);
     removeNewline(nomePessoa);
