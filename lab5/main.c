@@ -37,9 +37,6 @@ void exibirMenu() {
 
 
 int main() {
-
-    calcInvIPCA(30);
-    
     int opcao, idPessoa, indexFinanca;
 
     while (1) {
