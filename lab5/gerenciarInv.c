@@ -7,12 +7,12 @@ void mostrarFinancasPessoas(Pessoa pessoa) {
         printf("Nome da finança: %s\n", pessoa.financas[i].nome);
         printf("Tipo da finança: %s\n", tipoInvestimentoString[pessoa.financas[i].tipo]);
         printf("Valor aplicado na finança: %.2f\n", pessoa.financas[i].valorAplicado);
-        printf("Data de aplicação: %d/%d/%d\n\n", pessoa.financas[i].dataAplicacao.dia, pessoa.financas[i].dataAplicacao.mes, pessoa.financas[i].dataAplicacao.ano);
+        printf("Data de aplicação: %d/%d/%d\n", pessoa.financas[i].dataAplicacao.dia, pessoa.financas[i].dataAplicacao.mes, pessoa.financas[i].dataAplicacao.ano);
         if (pessoa.financas[i].isUpToDate) {
             printf("Imposto: %.2f\n", pessoa.financas[i].imposto);
-            printf("Valor bruto: %.2f\n", pessoa.financas[i].valorBruto);
+            printf("Valor bruto: %.2f\n\n", pessoa.financas[i].valorBruto);
         } else {
-            printf("Atualize o investimento para mais informações\n");
+            printf("Atualize o investimento para mais informações\n\n");
         }
     }
 }

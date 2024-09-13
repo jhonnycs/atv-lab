@@ -17,6 +17,10 @@ char tipoInvestimentoString[4][TAM_NOME] = {
     "CDI"
 };
 
+float taxasInvestimentos[] = {
+    
+}
+
 void exibirMenu() {
     printf("\nMenu:\n");
     printf("01. Criar nova pessoa e finança\n");

@@ -1,5 +1,4 @@
 #include "calcInv.h"
-#include <math.h>
 
 int diasNumMes(int mes, int ano) {
     switch (mes) {
@@ -38,7 +37,7 @@ int diferencaMeses(Data d1, Data d2) {
 
     int totalMeses2 = d2.ano * 12 + d2.mes;
 
-    return totalMeses1-totalMeses2;
+    return abs(totalMeses1-totalMeses2);
 }
 
 float calcTaxaImposto(int diasPassados) {
@@ -80,7 +79,7 @@ void atualizarInvestimento(Financeiro *financa) {
     // double taxaDiaria = pow(financa->taxaJuros + 1, (double)1 / (double)365);
     // financa->valorBruto = financa->valorBruto * pow(taxaDiaria, diferencaDias);
 
-    calcInvIPCA(financa, diferencaMeses(financa->dataAplicacao, dataAtual));
+    calcInvIPCA(financa, diferencaMeses(dataAtual, financa->dataAplicacao));
 
     float lucro = financa->valorBruto - financa->valorAplicado;
     financa->imposto = lucro * calcTaxaImposto(diferencaDias);
@@ -93,10 +92,8 @@ void atualizarInvestimento(Financeiro *financa) {
 }
 
 void calcInvIPCA(Financeiro *financa, int numMeses) {
+    float *ipca = (float*) malloc(numMeses * sizeof(float));
 
-    float* ipca = (float*) malloc(numMeses * sizeof(float));
-
-    // Verifica se a alocação foi bem-sucedida
     if (ipca == NULL) {
         printf("Erro na alocação de memória!\n");
         return;
