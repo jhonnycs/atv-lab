@@ -77,8 +77,10 @@ void atualizarInvestimento(Financeiro *financa) {
 
     int diferencaDias = dataAtualEmDias - dataAplicacaoEmDias;
 
-    double taxaDiaria = pow(financa->taxaJuros + 1, (double)1 / (double)365);
-    financa->valorBruto = financa->valorBruto * pow(taxaDiaria, diferencaDias);
+    // double taxaDiaria = pow(financa->taxaJuros + 1, (double)1 / (double)365);
+    // financa->valorBruto = financa->valorBruto * pow(taxaDiaria, diferencaDias);
+
+    calcInvIPCA(financa, diferencaMeses(financa->dataAplicacao, dataAtual));
 
     float lucro = financa->valorBruto - financa->valorAplicado;
     financa->imposto = lucro * calcTaxaImposto(diferencaDias);
@@ -90,7 +92,7 @@ void atualizarInvestimento(Financeiro *financa) {
     printf("valor bruto: %.2f\n", financa->valorBruto);
 }
 
-float calcInvIPCA(int numMeses) {
+void calcInvIPCA(Financeiro *financa, int numMeses) {
 
     float* ipca = (float*) malloc(numMeses * sizeof(float));
 
@@ -102,16 +104,10 @@ float calcInvIPCA(int numMeses) {
 
     for (int i = 0; i < numMeses; i++) {
         ipca[i] = ((float)rand() / RAND_MAX) * 0.10;
-    }
-
-    printf("Valores do IPCA para %d meses:\n", numMeses);
-    for (int i = 0; i < numMeses; i++) {
-        printf("Mês %d: %.4f\n", i + 1, ipca[i]);
+        financa->valorBruto = financa->valorBruto + financa->valorBruto * ipca[i];
     }
 
     free(ipca);
-
-    return 0.2;
 }
 
 void imprimirValorBrutoTotal(Financeiro *financa) {
