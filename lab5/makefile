@@ -8,4 +8,4 @@ $(TARGET): $(SRCS)
 	$(CC) $(CFLAGS) -o $(TARGET).out $(SRCS) $(LIBS)
 
 clean:
-	rm -f *.o investimentos
+	rm -f *.o investimentos.out

@@ -65,6 +65,28 @@ void atualizarDataAtual() {
     dataAtual.dia = tm->tm_mday;
 }
 
+void calcInvMensal(Financeiro *financa, int numMeses) {
+    for (int i = 0; i < numMeses; i++) {
+        financa->valorBruto = financa->valorBruto + financa->valorBruto * taxasInvestimentos[i];
+    }
+}
+
+// void calcInvIPCA(Financeiro *financa, int numMeses) {
+//     float *ipca = (float*) malloc(numMeses * sizeof(float));
+
+//     if (ipca == NULL) {
+//         printf("Erro na alocação de memória!\n");
+//         return;
+//     }
+
+//     for (int i = 0; i < numMeses; i++) {
+//         ipca[i] = ((float)rand() / RAND_MAX) * 0.10;
+//         financa->valorBruto = financa->valorBruto + financa->valorBruto * ipca[i];
+//     }
+
+//     free(ipca);
+// }
+
 void atualizarInvestimento(Financeiro *financa) {
 
     atualizarDataAtual();
@@ -79,7 +101,9 @@ void atualizarInvestimento(Financeiro *financa) {
     // double taxaDiaria = pow(financa->taxaJuros + 1, (double)1 / (double)365);
     // financa->valorBruto = financa->valorBruto * pow(taxaDiaria, diferencaDias);
 
-    calcInvIPCA(financa, diferencaMeses(dataAtual, financa->dataAplicacao));
+    // calcInvIPCA(financa, diferencaMeses(dataAtual, financa->dataAplicacao));
+
+    calcInvMensal(financa, diferencaMeses(dataAtual, financa->dataAplicacao));
 
     float lucro = financa->valorBruto - financa->valorAplicado;
     financa->imposto = lucro * calcTaxaImposto(diferencaDias);
@@ -89,22 +113,6 @@ void atualizarInvestimento(Financeiro *financa) {
     printf("imposto: %.2f\n", financa->imposto);
     printf("Valor aplicado: %.2f\n", financa->valorAplicado);
     printf("valor bruto: %.2f\n", financa->valorBruto);
-}
-
-void calcInvIPCA(Financeiro *financa, int numMeses) {
-    float *ipca = (float*) malloc(numMeses * sizeof(float));
-
-    if (ipca == NULL) {
-        printf("Erro na alocação de memória!\n");
-        return;
-    }
-
-    for (int i = 0; i < numMeses; i++) {
-        ipca[i] = ((float)rand() / RAND_MAX) * 0.10;
-        financa->valorBruto = financa->valorBruto + financa->valorBruto * ipca[i];
-    }
-
-    free(ipca);
 }
 
 void imprimirValorBrutoTotal(Financeiro *financa) {
