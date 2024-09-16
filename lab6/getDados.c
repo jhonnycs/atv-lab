@@ -169,7 +169,7 @@ void recuperarDados(char *nomeArquivo) {
         return;
     }
     fseek(arquivo, 0, SEEK_SET);
-    fscanf(arquivo, "%d", quantPessoas);
+    fscanf(arquivo, "%d", &quantPessoas);
 
     for (int i = 0; i < quantPessoas; i++) {
         fscanf(arquivo, "%d // %99[^//] // %d\n", 
@@ -179,21 +179,22 @@ void recuperarDados(char *nomeArquivo) {
         
         // Lê as finanças da pessoa
         for (int j = 0; j < pessoas[i].quantFinancas; j++) {
-            fscanf(arquivo, "%d // %99[^//] // %d %d %d // %f // %d %d %d // %f // %f // %f // %d\n",
+            fscanf(arquivo, "%u // %s // %d %d %d // %f // %d %d %d // %f // %f // %f // %d\n",
                     &pessoas[i].financas[j].tipo,
                     pessoas[i].financas[j].nome,
                     &pessoas[i].financas[j].dataAplicacao.ano,
-                    pessoas[i].financas[j].dataAplicacao.mes,
-                    pessoas[i].financas[j].dataAplicacao.dia,
+                    &(pessoas[i].financas[j].dataAplicacao.mes),
+                    &pessoas[i].financas[j].dataAplicacao.dia,
                     &pessoas[i].financas[j].valorBruto,
                     &pessoas[i].financas[j].dataVencimento.ano,
-                    pessoas[i].financas[j].dataVencimento.mes,
-                    pessoas[i].financas[j].dataVencimento.dia,
+                    &pessoas[i].financas[j].dataVencimento.mes,
+                    &pessoas[i].financas[j].dataVencimento.dia,
                     &pessoas[i].financas[j].valorAplicado,
                     &pessoas[i].financas[j].taxaJuros,
                     &pessoas[i].financas[j].imposto,
                     &pessoas[i].financas[j].isUpToDate);
         }
+        quantPessoas++;
     }
 
     fclose(arquivo);
