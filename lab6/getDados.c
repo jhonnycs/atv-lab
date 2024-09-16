@@ -32,13 +32,12 @@ Data getData() {
     
     int ano, mes, dia;
     
-    printf("Digite o ano:\n> ");
+    printf("Digite o ano:\n");
     scanf("%d", &ano);
     limparEntrada();
     while (ano <= MENOR_ANO || ano > dataAtual.ano) {
         printf("Ano inválido. Por favor, insira um ano maior que %d e menor ou igual a %d.\n> ", MENOR_ANO, dataAtual.ano);
         scanf("%d", &ano);
-        while (getchar() != '\n');
     }
     
     printf("Digite o mês (1-12):\n> ");
@@ -179,13 +178,13 @@ void recuperarDados(char *nomeArquivo) {
     fscanf(arquivo, "%d", &quantPessoas);
 
     for (int i = 0; i < quantPessoas; i++) {
-        fscanf(arquivo, "%d // %99[^ //] // %d", 
+        fscanf(arquivo, "%d // %s // %d", 
                 &pessoas[i].id,
                 pessoas[i].nome,
                 &pessoas[i].quantFinancas);
         
         for (int j = 0; j < pessoas[i].quantFinancas; j++) {
-            fscanf(arquivo, "%u // %99[^ //] // %d %d %d // %f // %d %d %d // %f // %f // %f // %d\n",
+            fscanf(arquivo, "%u // %s // %d %d %d // %f // %d %d %d // %f // %f // %f // %d\n",
                     &pessoas[i].financas[j].tipo,
                     pessoas[i].financas[j].nome,
                     &pessoas[i].financas[j].dataAplicacao.ano,

@@ -3,10 +3,18 @@
 #include <stdlib.h>
 #include <time.h>
 #include <math.h>
+#include <signal.h>
+
 #include "getDados.h"
 #include "gerenciarInv.h"
 #include "atualizarInv.h"
 #include "mostrarDados.h"
+
+void handle_sigint(int sig) {
+    salvarDados(NOME_ARQUIVO);
+    
+    exit(0);
+}
 
 Pessoa pessoas[MAX_PESSOAS];
 Data dataAtual;
@@ -132,6 +140,7 @@ void exibirMenu() {
 }
 
 int main() {
+    signal(SIGINT, handle_sigint);
     int opcao, idPessoa, indexFinanca;
 
     recuperarDados(NOME_ARQUIVO);
@@ -140,7 +149,7 @@ int main() {
         exibirMenu();
         scanf("%d", &opcao);
         
-        while (getchar() != '\n'); // Limpar o buffer de entrada
+        limparEntrada();
 
         switch (opcao) {
             case 0: {                // Sair
