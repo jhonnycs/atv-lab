@@ -118,7 +118,7 @@ void exibirMenu() {
     printf(" 3. Modificar finança de uma pessoa\n");
     printf(" 4. Mostrar finanças de uma pessoa\n");
     printf(" 5. Deletar finanças de uma pessoa\n");
-    printf(" 6. Mostrar finanças de uma pessoa\n");
+    printf(" 6. Mostrar uma finança de uma pessoa\n");
     printf(" 7. Ordenar finanças por data\n");
     printf(" 8. Ordenar finanças por tipo\n");
     printf(" 9. Ordenar finanças por valor\n");
