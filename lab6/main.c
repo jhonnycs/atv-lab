@@ -162,40 +162,36 @@ int main() {
                 break;
             }
             case 3: {                // Modificar finança de uma pessoa
-                printf("Digite o ID da pessoa:\n> ");
+                printf("Digite o ID da pessoa (ou -1 para voltar):\n> ");
                 scanf("%d", &idPessoa);
 
                 while (idPessoa < -1 || idPessoa >= quantPessoas) {
-                    printf("ID inválido. Digite de novo ou digite -1 para voltar ao menu:\n> ");
+                    printf("ID inválido. Digite de novo:\n> ");
                     scanf("%d", &idPessoa);
-                    if (idPessoa == -1) break;
                 }
+                if (idPessoa == -1) break;
 
-                if (idPessoa != -1) {
-                    printf("Digite o índice da finança:\n> ");
-                    scanf("%d", &indexFinanca);
-                }
-
+                printf("Digite o índice da finança (ou -1 para voltar):\n> ");
+                scanf("%d", &indexFinanca);
+                
                 while (indexFinanca < -1 || indexFinanca >= pessoas[idPessoa].quantFinancas) {
                     printf("Digite um índice válido ou -1 para voltar:\n> ");
                     scanf("%d", &indexFinanca);
-                    if (indexFinanca == -1) break;
                 }
+                if (indexFinanca == -1) break;
 
-                if (idPessoa != -1 && indexFinanca != -1) modificarFinanca(idPessoa, indexFinanca);
 
+                modificarFinanca(idPessoa, indexFinanca);
                 break;
             }
             case 4: {                // Mostrar finanças de uma pessoa
-                printf("Digite o ID da pessoa:\n> ");
+                printf("Digite o ID da pessoa (-1 para voltar):\n> ");
                 scanf("%d", &idPessoa);
                 while (idPessoa < -1 || idPessoa >= quantPessoas) {
                     printf("ID inválido. Digite de novo ou digite -1 para voltar ao menu:\n> ");
                     scanf("%d", &idPessoa);
-                    if (idPessoa == -1) break;
                 }
                 if (idPessoa != -1) mostrarFinancasPessoas(pessoas[idPessoa]);
-                
                 break;
             }
             case 5: {                // Deletar finança de uma pessoa

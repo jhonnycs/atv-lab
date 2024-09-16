@@ -4,6 +4,7 @@ void mostrarFinancasPessoas(Pessoa pessoa) {
     printf("Finanças de %s\n", pessoa.nome);
 
     for (int i = 0; i < pessoa.quantFinancas; i++) {
+        printf("Índice da finança: %d\n", i);
         printf("Nome da finança: %s\n", pessoa.financas[i].nome);
         printf("Tipo da finança: %s\n", tipoInvestimentoString[pessoa.financas[i].tipo]);
         printf("Valor aplicado na finança: %.2f\n", pessoa.financas[i].valorAplicado);

@@ -12,8 +12,8 @@
 #define NOME_ARQUIVO "arquivo.dat"
 
 typedef struct data {
-    int dia: 6;
-    int mes: 5;
+    int dia;
+    int mes;
     int ano;
 } Data;
 
@@ -50,6 +50,7 @@ extern Data dataAtual;
 
 extern char tipoInvestimentoString[4][TAM_NOME];
 
+void limparEntrada();
 int isBissexto(int ano);
 int diasNoMes(int mes, int ano);
 Data getData();
@@ -57,5 +58,7 @@ void removeNewline(char *str);
 Pessoa criarPessoaEFinanca();
 void salvarDados(char *nomeArquivo);
 void recuperarDados(char *nomeArquivo);
+
+#include "atualizarInv.h"
 
 #endif

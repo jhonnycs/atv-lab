@@ -32,11 +32,13 @@ void adicionarFinanca(int idPessoa) {
     printf("2- Selic\n");
     printf("3- CDI\n> ");
     scanf("%d", &tipo);
+    
     while (tipo < 0 || tipo > 3) {
         printf("Inválido. Digite o tipo de investimento (0 a 3)\n> ");
         scanf("%d", &tipo);
     }
-    
+    while (getchar() != '\n');    // Limpar o buffer de entrada
+
     printf("Digite o nome do investimento:\n> ");
     fgets(nomeInv, TAM_NOME, stdin);
     removeNewline(nomeInv);
@@ -72,9 +74,8 @@ void modificarFinanca(int idPessoa, int indexFinanca) {
     
     printf("\nDigite o novo valor\n> ");
     scanf("%f", &valor);
-    
-    // Limpar o buffer de entrada
-    while (getchar() != '\n');
+
+    while (getchar() != '\n');  // Limpar o buffer de entrada
     
     printf("Digite o tipo de investimento (0 a 3)\n");
     printf("0- Prefixado\n");
@@ -82,9 +83,11 @@ void modificarFinanca(int idPessoa, int indexFinanca) {
     printf("2- Selic\n");
     printf("3- CDI\n> ");
     scanf("%d", &tipo);
+    while (getchar() != '\n');  // Limpar o buffer de entrada
     while (tipo < 0 || tipo > 3) {
         printf("Inválido. Digite o tipo de investimento (0 a 3)\n> ");
         scanf("%d", &tipo);
+        while (getchar() != '\n');  // Limpar o buffer de entrada
     }
     
     printf("Digite o novo nome do investimento:\n> ");

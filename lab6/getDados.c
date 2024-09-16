@@ -4,6 +4,11 @@ int isBissexto(int ano) {
     return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
 }
 
+void limparEntrada() {
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF);
+}
+
 int diasNoMes(int mes, int ano) {
     switch (mes) {
         case 1: return 31; // Janeiro
@@ -23,32 +28,37 @@ int diasNoMes(int mes, int ano) {
 }
 
 Data getData() {
+    atualizarDataAtual();
+    
     int ano, mes, dia;
     
     printf("Digite o ano:\n> ");
     scanf("%d", &ano);
-    while (ano <= MENOR_ANO) {
-        printf("Ano inválido. Por favor, insira um ano maior que %d.\n", MENOR_ANO);
+    limparEntrada();
+    while (ano <= MENOR_ANO || ano > dataAtual.ano) {
+        printf("Ano inválido. Por favor, insira um ano maior que %d e menor ou igual a %d.\n> ", MENOR_ANO, dataAtual.ano);
         scanf("%d", &ano);
         while (getchar() != '\n');
     }
     
     printf("Digite o mês (1-12):\n> ");
     scanf("%d", &mes);
-    while (mes < 1 || mes > 12) {
-        printf("Mês inválido. Por favor, insira um valor entre 1 e 12.\n");
+    while (mes < 1 || mes > 12 || (ano == dataAtual.ano && mes > dataAtual.mes)) {
+        printf("Mês inválido. Por favor, insira um valor entre 1 e 12 e que condiga com a realidade\n> ");
         scanf("%d", &mes);
-        while (getchar() != '\n');
     }
+
+    limparEntrada();
 
     printf("Digite o dia:\n> ");
     scanf("%d", &dia);
+
     int diasNoMesAtual = diasNoMes(mes, ano);
-    while (dia < 1 || dia > diasNoMesAtual) {
-        printf("Dia inválido. Por favor, digite um dia válido, entre 1 e %d.\n", diasNoMesAtual);
+    while (dia < 1 || dia > diasNoMesAtual || (ano == dataAtual.ano && mes == dataAtual.mes && dia > dataAtual.dia)) {
+        printf("Dia inválido. Por favor, digite um dia válido, entre 1 e %d e que condiga com a realidade\n> ", diasNoMesAtual);
         scanf("%d", &dia);
-        while (getchar() != '\n');
     }
+    limparEntrada();
 
     Data data = {dia, mes, ano};
     return data;
@@ -73,9 +83,6 @@ Pessoa criarPessoaEFinanca() {
     Data data = getData();
     printf("\nDigite o valor\n> ");
     scanf("%f", &valor);
-
-
-    while (getchar() != '\n');    // Limpar o buffer de entrada
     
     printf("Digite o tipo de investimento (0 a 3)\n");
     printf("0- Prefixado\n");
@@ -83,19 +90,19 @@ Pessoa criarPessoaEFinanca() {
     printf("2- Selic\n");
     printf("3- CDI\n> ");
     scanf("%d", &tipo);
+
     while (tipo < 0 || tipo > 3) {
         printf("Inválido. Digite o tipo de investimento (0 a 3)\n> ");
         scanf("%d", &tipo);
     }
     
+    limparEntrada();
+    
     printf("Digite o nome do investimento:\n> ");
     fgets(nomeInv, TAM_NOME, stdin);
-    while (getchar() != '\n');    // Limpar o buffer de entrada
 
     printf("Digite o seu nome:\n> ");
     fgets(nomePessoa, TAM_NOME, stdin);
-
-    printf("%s\n", nomeInv); 
 
     removeNewline(nomeInv);
     removeNewline(nomePessoa);
