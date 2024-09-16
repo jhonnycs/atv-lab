@@ -15,7 +15,7 @@ int dateToDays(Data d);
 int diferencaMeses(Data d1, Data d2);
 float calcTaxaImposto(int diasPassados);
 
-void calcInvIPCA(Financeiro *financa, int numMeses);
+// void calcInvIPCA(Financeiro *financa, int numMeses);
 void calcInvMensal(Financeiro *financa, int numMeses);
 void atualizarDataAtual();
 

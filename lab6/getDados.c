@@ -114,7 +114,7 @@ Pessoa criarPessoaEFinanca() {
     if (pessoa.quantFinancas < MAX_INVEST) {
         pessoa.financas[pessoa.quantFinancas].dataAplicacao = data;
         pessoa.financas[pessoa.quantFinancas].valorAplicado = valor;
-        pessoa.financas[pessoa.quantFinancas].taxaJuros = 0.12;
+        pessoa.financas[pessoa.quantFinancas].taxaJuros = 0.08;
         pessoa.financas[pessoa.quantFinancas].tipo = (TipoInvestimento)tipo;
         strcpy(pessoa.financas[pessoa.quantFinancas].nome, nomeInv);
         pessoa.financas[pessoa.quantFinancas].isUpToDate = 0;
@@ -141,24 +141,24 @@ void salvarDados(char *nomeArquivo) {
     // Escreve cada pessoa no arquivo
     for (int i = 0; i < quantPessoas; i++) {
         // Escreve os dados da pessoa
-        fprintf(arquivo, "%d // %s // %d", pessoas[i].id, pessoas[i].nome, pessoas[i].quantFinancas);
+        fprintf(arquivo, "%d // %s // %d\n", pessoas[i].id, pessoas[i].nome, pessoas[i].quantFinancas);
 
         // Escreve as finanças da pessoa
         for (int j = 0; j < pessoas[i].quantFinancas; j++) {
-            fprintf(arquivo, "%d // %s // %d %d %d // %f // %d %d %d // %f // %f // %f // %d\n",
-                pessoas[i].financas[i].tipo,
-                pessoas[i].financas[i].nome,
-                pessoas[i].financas[i].dataAplicacao.ano,
-                pessoas[i].financas[i].dataAplicacao.mes,
-                pessoas[i].financas[i].dataAplicacao.dia,
-                pessoas[i].financas[i].valorBruto,
-                pessoas[i].financas[i].dataVencimento.ano,
-                pessoas[i].financas[i].dataVencimento.mes,
-                pessoas[i].financas[i].dataVencimento.dia,
-                pessoas[i].financas[i].valorAplicado,
-                pessoas[i].financas[i].taxaJuros,
-                pessoas[i].financas[i].imposto,
-                pessoas[i].financas[i].isUpToDate
+            fprintf(arquivo, "%u // %s // %d %d %d // %f // %d %d %d // %f // %f // %f // %d\n",
+                pessoas[i].financas[j].tipo,
+                pessoas[i].financas[j].nome,
+                pessoas[i].financas[j].dataAplicacao.ano,
+                pessoas[i].financas[j].dataAplicacao.mes,
+                pessoas[i].financas[j].dataAplicacao.dia,
+                pessoas[i].financas[j].valorBruto,
+                pessoas[i].financas[j].dataVencimento.ano,
+                pessoas[i].financas[j].dataVencimento.mes,
+                pessoas[i].financas[j].dataVencimento.dia,
+                pessoas[i].financas[j].valorAplicado,
+                pessoas[i].financas[j].taxaJuros,
+                pessoas[i].financas[j].imposto,
+                pessoas[i].financas[j].isUpToDate
             );
         }
     }
@@ -172,25 +172,24 @@ void recuperarDados(char *nomeArquivo) {
     FILE *arquivo = fopen(nomeArquivo, "r+");
     
     if (arquivo == NULL) {
-        printf("Erro ao abrir o arquivo para escrita");
+        printf("Erro ao abrir o arquivo para leitura");
         return;
     }
     fseek(arquivo, 0, SEEK_SET);
     fscanf(arquivo, "%d", &quantPessoas);
 
     for (int i = 0; i < quantPessoas; i++) {
-        fscanf(arquivo, "%d // %99[^//] // %d\n", 
+        fscanf(arquivo, "%d // %99[^ //] // %d", 
                 &pessoas[i].id,
                 pessoas[i].nome,
                 &pessoas[i].quantFinancas);
         
-        // Lê as finanças da pessoa
         for (int j = 0; j < pessoas[i].quantFinancas; j++) {
-            fscanf(arquivo, "%u // %s // %d %d %d // %f // %d %d %d // %f // %f // %f // %d\n",
+            fscanf(arquivo, "%u // %99[^ //] // %d %d %d // %f // %d %d %d // %f // %f // %f // %d\n",
                     &pessoas[i].financas[j].tipo,
                     pessoas[i].financas[j].nome,
                     &pessoas[i].financas[j].dataAplicacao.ano,
-                    &(pessoas[i].financas[j].dataAplicacao.mes),
+                    &pessoas[i].financas[j].dataAplicacao.mes,
                     &pessoas[i].financas[j].dataAplicacao.dia,
                     &pessoas[i].financas[j].valorBruto,
                     &pessoas[i].financas[j].dataVencimento.ano,
@@ -201,7 +200,6 @@ void recuperarDados(char *nomeArquivo) {
                     &pessoas[i].financas[j].imposto,
                     &pessoas[i].financas[j].isUpToDate);
         }
-        quantPessoas++;
     }
 
     fclose(arquivo);

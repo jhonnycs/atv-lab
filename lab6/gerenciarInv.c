@@ -18,13 +18,13 @@ void adicionarFinanca(int idPessoa) {
     char nomeInv[TAM_NOME];
     Data data;
 
-    printf("Digite a data de investimento\n> ");
+    printf("Digite a data de investimento\n");
     data = getData();
     
     printf("\nDigite o valor\n> ");
     scanf("%f", &valor);
-    
-    while (getchar() != '\n');    // Limpar o buffer de entrada
+
+    limparEntrada();
     
     printf("Digite o tipo de investimento (0 a 3)\n");
     printf("0- Prefixado\n");
@@ -37,7 +37,7 @@ void adicionarFinanca(int idPessoa) {
         printf("Inválido. Digite o tipo de investimento (0 a 3)\n> ");
         scanf("%d", &tipo);
     }
-    while (getchar() != '\n');    // Limpar o buffer de entrada
+    limparEntrada();
 
     printf("Digite o nome do investimento:\n> ");
     fgets(nomeInv, TAM_NOME, stdin);

@@ -1,7 +1,7 @@
 #include "mostrarDados.h"
 
 void mostrarFinancasPessoas(Pessoa pessoa) {
-    printf("Finanças de %s\n", pessoa.nome);
+    printf("Finanças de %s (%d)-----------------------\n", pessoa.nome, pessoa.quantFinancas);
 
     for (int i = 0; i < pessoa.quantFinancas; i++) {
         printf("Índice da finança: %d\n", i);

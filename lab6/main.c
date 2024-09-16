@@ -134,6 +134,8 @@ void exibirMenu() {
 int main() {
     int opcao, idPessoa, indexFinanca;
 
+    recuperarDados(NOME_ARQUIVO);
+
     while (1) {
         exibirMenu();
         scanf("%d", &opcao);
